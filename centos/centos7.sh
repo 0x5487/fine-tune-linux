@@ -91,15 +91,17 @@ fi
 
 >/etc/sysctl.conf cat << EOF 
 vm.swappiness = 1
+vm.overcommit_memory = 1
 vm.max_map_count=262144
 net.ipv4.ip_local_port_range = 1024 65535 
 net.ipv4.tcp_fin_timeout = 30
 net.ipv4.tcp_max_syn_backlog = 65536
-net.core.somaxconn = 65536
+net.core.somaxconn = 65535
 net.ipv4.tcp_timestamps = 0
 net.ipv4.tcp_syncookies = 1
 net.ipv4.tcp_tw_recycle = 0
 net.ipv4.tcp_tw_reuse = 1
+net.ipv4.ip_forward= 1
 net.ipv4.tcp_mem = 94500000   915000000   927000000
 net.ipv4.tcp_keepalive_time = 1200
 net.ipv4.tcp_max_orphans = 3276800
@@ -116,7 +118,7 @@ fs.file-max = 1048575
 kernel.panic = 1
 EOF
 
-/sbin/sysctl -p /etc/sysctl.conf
+sudo sysctl -p
 
 
 
