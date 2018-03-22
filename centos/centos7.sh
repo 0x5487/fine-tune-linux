@@ -3,7 +3,7 @@
 #update package
 yum install -y epel-release
 yum update -y
-yum install -y net-tools telnet nfs-utils lrzsz nano chrony yum-utils curl
+yum install -y telnet nfs-utils lrzsz nano chrony yum-utils curl
 
 # sync time now
 timedatectl set-timezone Asia/Taipei
