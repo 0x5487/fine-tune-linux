@@ -84,3 +84,4 @@ kernel.panic = 1
 
 參考:
 http://nosmoking.blog.51cto.com/3263888/1684114
+https://www.jianshu.com/p/f05294c0a456
