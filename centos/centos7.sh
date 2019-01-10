@@ -26,21 +26,17 @@ mkdir -p /etc/docker/
 }
 EOF
 
-# change max open file for docker
-mkdir -p /etc/systemd/system/docker.service.d/
->/etc/systemd/system/docker.service.d/override.conf << EOF 
-[Service]
-LimitNOFILE=1000000  
-LimitMEMLOCK=infinity
-EOF
-systemctl daemon-reload  
+# install docker-compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
+#docker.service增加額外設定 & 18.09.0後增加的containerd.io套件
+echo -e "[Service]\nExecStart=\nExecStart=/usr/bin/dockerd\nLimitNOFILE=1000000\nLimitMEMLOCK=infinity" | SYSTEMD_EDITOR=tee systemctl edit docker.service
+echo -e "[Service]\nLimitNOFILE=1000000\nLimitMEMLOCK=infinity" | SYSTEMD_EDITOR=tee systemctl edit containerd.service
+systemctl daemon-reload
+systemctl enable containerd
 systemctl enable docker
 systemctl restart docker
-
-# install docker-compose
-sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
 
 
 # user level
