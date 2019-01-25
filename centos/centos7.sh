@@ -12,8 +12,13 @@ systemctl start chronyd
 sudo chronyc -a makestep
 
 # install docker
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-sudo yum install docker-ce
+# 安裝 docker，目前固定版號：18.06.1
+wget -P /etc/yum.repos.d/ https://download.docker.com/linux/centos/docker-ce.repo
+# 設定 yum 排除 docker 相關 package
+sed /etc/yum.repos.d/docker-ce.repo -e '/^gpgkey/a exclude=docker-ce* containerd.io* docker-ce-cli*' -i
+# 要安裝 docker 要額外取消排除設定
+yum install docker-ce-18.06.1.ce-3.el7.x86_64 -y --disableexclude=docker-ce-stable
+
 
 # change docker storage driver to overlay2
 mkdir -p /etc/docker/
