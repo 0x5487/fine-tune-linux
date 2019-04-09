@@ -18,7 +18,7 @@ sudo yum-config-manager \
 # 設定 yum 排除 docker 相關 package
 sed /etc/yum.repos.d/docker-ce.repo -e '/^gpgkey/a exclude=docker-ce* containerd.io* docker-ce-cli*' -i
 # 安裝 docker，目前固定版號：18.06.3, 要安裝 docker 要額外取消排除設定
-yum install docker-ce-18.06.3.ce-3.el7.x86_64 -y --disableexclude=docker-ce-stable
+yum install docker-ce-18.09.4-3.el7.x86_64 -y --disableexclude=docker-ce-stable
 
 
 # change docker storage driver to overlay2

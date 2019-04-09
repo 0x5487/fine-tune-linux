@@ -1,6 +1,6 @@
 #### 前置
 1. yum install lrzsz
-1. sed -i 's/\r//' centos7.sh
+1. visudo
 
 
 ### Tcp 優化
