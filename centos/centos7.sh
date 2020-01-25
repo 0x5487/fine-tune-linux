@@ -17,8 +17,10 @@ sudo yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 # 設定 yum 排除 docker 相關 package
 sed /etc/yum.repos.d/docker-ce.repo -e '/^gpgkey/a exclude=docker-ce* containerd.io* docker-ce-cli*' -i
-# 安裝 docker，目前固定版號：18.06.3, 要安裝 docker 要額外取消排除設定
-yum install docker-ce-18.09.4-3.el7.x86_64 -y --disableexclude=docker-ce-stable
+
+
+# 安裝 docker，目前固定版號：19.03.5, 要安裝 docker 要額外取消排除設定
+sudo yum install docker-ce-19.03.5 docker-ce-cli-19.03.5 containerd.io -y --disableexclude=docker-ce-stable
 
 
 # change docker storage driver to overlay2
@@ -33,7 +35,7 @@ mkdir -p /etc/docker/
 EOF
 
 # install docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
 #docker.service增加額外設定 & 18.09.0後增加的containerd.io套件
